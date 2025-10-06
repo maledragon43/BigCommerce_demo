@@ -82,6 +82,10 @@ const Summary = ({ data, selections, totalPrice, onAddToCart }) => {
           >
             Add to Cart - ${totalPrice.toFixed(2)}
           </button>
+          
+          <div style={{ marginTop: '10px', fontSize: '12px', color: '#666' }}>
+            Demo Mode: This will simulate adding to cart. Configure BigCommerce credentials for real integration.
+          </div>
         </>
       ) : (
         <p>Please complete your configuration to see the summary.</p>

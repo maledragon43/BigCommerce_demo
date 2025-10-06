@@ -14,9 +14,5 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "env": {
-    "BIGCOMMERCE_STORE_HASH": "@bigcommerce-store-hash",
-    "BIGCOMMERCE_ACCESS_TOKEN": "@bigcommerce-access-token"
-  }
+  ]
 }

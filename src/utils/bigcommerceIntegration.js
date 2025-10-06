@@ -2,10 +2,11 @@
 // This file contains the logic for integrating with BigCommerce APIs
 
 export class BigCommerceConfigurator {
-  constructor(storeHash, accessToken) {
-    this.storeHash = storeHash
-    this.accessToken = accessToken
-    this.baseUrl = `https://api.bigcommerce.com/stores/${storeHash}/v3`
+  constructor(storeHash = null, accessToken = null) {
+    this.storeHash = storeHash || process.env.BIGCOMMERCE_STORE_HASH
+    this.accessToken = accessToken || process.env.BIGCOMMERCE_ACCESS_TOKEN
+    this.isDemoMode = !this.storeHash || !this.accessToken
+    this.baseUrl = this.storeHash ? `https://api.bigcommerce.com/stores/${this.storeHash}/v3` : null
   }
 
   // Map configuration selections to BigCommerce product variants
@@ -73,6 +74,15 @@ export class BigCommerceConfigurator {
 
   // Add configured kit to BigCommerce cart
   async addToCart(variants, customerId = null) {
+    if (this.isDemoMode) {
+      console.log('Demo Mode: Simulating cart addition', variants)
+      return {
+        id: 'demo-cart-' + Date.now(),
+        line_items: variants,
+        total_price: variants.reduce((sum, v) => sum + (v.price * v.quantity), 0)
+      }
+    }
+
     const cartItems = variants.map(variant => ({
       product_id: variant.productId,
       variant_id: variant.variantId,
@@ -108,6 +118,11 @@ export class BigCommerceConfigurator {
 
   // Update inventory for individual SKUs
   async updateInventory(sku, quantityChange) {
+    if (this.isDemoMode) {
+      console.log(`Demo Mode: Simulating inventory update for SKU ${sku}, change: ${quantityChange}`)
+      return { success: true, sku, quantityChange }
+    }
+
     try {
       // First, find the product by SKU
       const productsResponse = await fetch(
