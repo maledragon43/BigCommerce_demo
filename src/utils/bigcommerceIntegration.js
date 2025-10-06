@@ -250,7 +250,7 @@ export const createAdminConfig = (configuratorData) => {
       })) : null
     }))
   }
-})
+}
 
 // Export configuration to CSV for admin use
 export const exportToCSV = (adminConfig) => {
