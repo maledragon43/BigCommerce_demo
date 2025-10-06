@@ -161,7 +161,7 @@ src/
 └── main.jsx
 ```
 
-## License
+## License   
 
 Developed by Fauzan Riza Azhar for BigCommerce product configuration.
 
