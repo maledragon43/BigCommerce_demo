@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "env": {
+    "BIGCOMMERCE_STORE_HASH": "@bigcommerce-store-hash",
+    "BIGCOMMERCE_ACCESS_TOKEN": "@bigcommerce-access-token"
+  }
+}
