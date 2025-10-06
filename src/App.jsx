@@ -1,5 +1,136 @@
 import React, { useState, useEffect } from 'react'
-import { configuratorData } from './data/configuratorData'
+
+// Simple configurator data
+const configuratorData = {
+  steps: [
+    {
+      id: 'base-device',
+      title: 'Choose Base Device',
+      type: 'single',
+      options: [
+        {
+          id: 'muzzle-brake',
+          name: 'Muzzle Brake',
+          price: 89.99,
+          sku: 'MB-001',
+          description: 'High-performance muzzle brake for recoil reduction'
+        },
+        {
+          id: 'flash-hider',
+          name: 'Flash Hider',
+          price: 79.99,
+          sku: 'FH-001',
+          description: 'Effective flash suppression device'
+        }
+      ]
+    },
+    {
+      id: 'material-finish',
+      title: 'Choose Material/Finish',
+      type: 'single',
+      options: [
+        {
+          id: 'black-nitride',
+          name: 'Black Nitride',
+          price: 15.00,
+          sku: 'BN-001',
+          description: 'Durable black nitride finish'
+        },
+        {
+          id: 'polished-stainless',
+          name: 'Polished Stainless',
+          price: 25.00,
+          sku: 'PS-001',
+          description: 'Premium polished stainless steel finish'
+        }
+      ]
+    },
+    {
+      id: 'accessories',
+      title: 'Choose Accessories (Multi-select)',
+      type: 'accessories',
+      categories: [
+        {
+          id: 'sound-redirect-sleeve',
+          name: 'Sound Redirect Sleeve',
+          description: 'Choose length for sound redirection',
+          options: [
+            {
+              id: 'sleeve-2in',
+              name: '2" Redirect Sleeve',
+              price: 45.99,
+              sku: 'SRS-2',
+              description: '2 inch redirect sleeve'
+            },
+            {
+              id: 'sleeve-4in',
+              name: '4" Redirect Sleeve',
+              price: 55.99,
+              sku: 'SRS-4',
+              description: '4 inch redirect sleeve'
+            },
+            {
+              id: 'sleeve-6in',
+              name: '6" Redirect Sleeve',
+              price: 65.99,
+              sku: 'SRS-6',
+              description: '6 inch redirect sleeve'
+            },
+            {
+              id: 'sleeve-8in',
+              name: '8" Redirect Sleeve',
+              price: 75.99,
+              sku: 'SRS-8',
+              description: '8 inch redirect sleeve'
+            }
+          ]
+        },
+        {
+          id: 'hub-adapter',
+          name: 'Hub Adapter',
+          description: 'Choose material for hub adapter',
+          options: [
+            {
+              id: 'hub-black-nitride',
+              name: 'Hub Adapter - Black Nitride',
+              price: 29.99,
+              sku: 'HA-BN',
+              description: 'Black nitride hub adapter'
+            },
+            {
+              id: 'hub-polished-stainless',
+              name: 'Hub Adapter - Polished Stainless',
+              price: 39.99,
+              sku: 'HA-PS',
+              description: 'Polished stainless hub adapter'
+            }
+          ]
+        },
+        {
+          id: 'gal-pal',
+          name: 'GAL-PAL (Golf Ball Launcher)',
+          description: 'Choose style for golf ball launcher',
+          options: [
+            {
+              id: 'gal-pal-dimpled',
+              name: 'GAL-PAL - Dimpled',
+              price: 149.99,
+              sku: 'GAL-DIM',
+              description: 'Aluminum anodized dimpled style'
+            },
+            {
+              id: 'gal-pal-grooved',
+              name: 'GAL-PAL - Grooved',
+              price: 149.99,
+              sku: 'GAL-GRO',
+              description: 'Aluminum anodized grooved style'
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
 
 function App() {
   const [selections, setSelections] = useState({})
@@ -9,9 +140,9 @@ function App() {
   const [cartResult, setCartResult] = useState(null)
   const [shareableUrl, setShareableUrl] = useState('')
 
-  console.log('App component rendering')
+  console.log('🚀 App component rendering')
   console.log('Current step:', currentStep)
-  console.log('Configurator data:', configuratorData)
+  console.log('Selections:', selections)
 
   const handleSelection = (step, optionId, isMultiSelect = false) => {
     console.log('Selection made:', { step, optionId, isMultiSelect })
@@ -88,11 +219,11 @@ function App() {
       const shareUrl = `${window.location.origin}${window.location.pathname}?config=${btoa(JSON.stringify(selections))}`
       setShareableUrl(shareUrl)
       
-      console.log('Configuration added to cart:', cartResult)
-      console.log('Shareable URL:', shareUrl)
+      console.log('✅ Configuration added to cart:', cartResult)
+      console.log('🔗 Shareable URL:', shareUrl)
       
     } catch (error) {
-      console.error('Error adding to cart:', error)
+      console.error('❌ Error adding to cart:', error)
       setCartResult({ error: error.message })
     } finally {
       setIsLoading(false)
@@ -238,11 +369,18 @@ function App() {
   return (
     <div className="app">
       <div className="configurator">
-        <div style={{ padding: '20px', backgroundColor: '#f0f8ff', marginBottom: '20px', borderRadius: '8px' }}>
+        <div style={{ 
+          padding: '20px', 
+          backgroundColor: '#e3f2fd', 
+          marginBottom: '20px', 
+          borderRadius: '8px',
+          border: '2px solid #2196f3'
+        }}>
           <h3>🚀 Interactive Configurator Demo</h3>
-          <p>This is a fully functional BigCommerce product configurator. Try selecting options below!</p>
+          <p><strong>Status:</strong> Fully functional BigCommerce product configurator</p>
           <p><strong>Current Step:</strong> {currentStep}</p>
           <p><strong>Total Price:</strong> ${totalPrice.toFixed(2)}</p>
+          <p><strong>Selected Items:</strong> {selectedOptions.length}</p>
         </div>
         
         {configuratorData.steps.map(step => renderStep(step))}
@@ -285,7 +423,7 @@ function App() {
                     </div>
                   ) : (
                     <div style={{ color: '#2e7d32' }}>
-                      <strong>Success!</strong> Configuration added to cart.
+                      <strong>✅ Success!</strong> Configuration added to cart.
                       <br />
                       <small>Cart ID: {cartResult.id}</small>
                     </div>
@@ -301,7 +439,7 @@ function App() {
                   border: '1px solid #ddd',
                   borderRadius: '4px'
                 }}>
-                  <strong>Shareable URL:</strong>
+                  <strong>🔗 Shareable URL:</strong>
                   <br />
                   <a href={shareableUrl} target="_blank" rel="noopener noreferrer" style={{ 
                     color: '#1976d2', 
@@ -314,7 +452,7 @@ function App() {
               )}
               
               <div style={{ marginTop: '10px', fontSize: '12px', color: '#666' }}>
-                Demo Mode: This simulates adding to cart. Configure BigCommerce credentials for real integration.
+                💡 Demo Mode: This simulates adding to cart. Configure BigCommerce credentials for real integration.
               </div>
             </>
           ) : (
