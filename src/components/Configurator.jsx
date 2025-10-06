@@ -10,7 +10,11 @@ const Configurator = ({
   onStepChange,
   totalPrice,
   isStepCompleted,
-  canProceedToStep
+  canProceedToStep,
+  onAddToCart,
+  isLoading,
+  cartResult,
+  shareableUrl
 }) => {
   const handleStepClick = (stepId) => {
     if (canProceedToStep(stepId)) {
@@ -51,10 +55,10 @@ const Configurator = ({
         data={data}
         selections={selections}
         totalPrice={totalPrice}
-        onAddToCart={() => {
-          // This would integrate with BigCommerce API
-          console.log('Adding to cart:', { selections, totalPrice })
-        }}
+        onAddToCart={onAddToCart}
+        isLoading={isLoading}
+        cartResult={cartResult}
+        shareableUrl={shareableUrl}
       />
     </div>
   )

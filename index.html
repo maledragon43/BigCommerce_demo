@@ -125,12 +125,99 @@
             background: #bdc3c7;
             cursor: not-allowed;
         }
+        
+        /* Demo Features Styling */
+        .demo-features {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            border-color: #3498db;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+        }
+        .feature-card.active {
+            border-color: #27ae60;
+            background: #e8f5e8;
+        }
+        .feature-card h3 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+        .demo-instruction {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0f8ff;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .technical-details {
+            margin-top: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .technical-details ul {
+            list-style: none;
+            padding: 0;
+        }
+        .technical-details li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .capabilities-showcase {
+            margin-top: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .capability {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        .capability h4 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+        
         @media (max-width: 768px) {
             .option-grid {
                 grid-template-columns: 1fr;
             }
             .configurator-content {
                 padding: 10px;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .capabilities-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
